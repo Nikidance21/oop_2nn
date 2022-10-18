@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+
+{% block title %} Профиль пользователя {% endblock %}
+
+{% block content %}
+   <h2>Профиль пользователя {{ user.username }}</h2>
+   {% if user.name and user.surname %}
+       <p>Здравствуйте, {{ user.name }} {{ user.surname }} </p>
+   {% else %}
+       <p>Здравствуйте! </p>
+   {% endif %}
+   <h3>Ваши объявления</h3>
+{% endblock %}
