@@ -1,20 +1,19 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
+<h1>Аутентификация</h1>
 {% if form.errors %}
-  <p>Неверный логин или пароль. Попробуй ещё раз.</p>
+<div class="alert-danger"><p class="p-1">Неверный логин или пароль. Попробуй ещё раз.</p></div>
+
 {% endif %}
 
 {% if next %}
   {% if user.is_authenticated %}
-    <p>У тебя нет доступа к этой странице. Зарегистрируйся чтобы получить доступ.</p>
+    <p>Вы уже авторизованы.<a href ="{% url 'logout' %}">Выйти</a></p>
   {% else %}
     <p>Войди в аккаунт, чтобы увидеть эту страницу</p>
   {% endif %}
-{% endif %}
-
-<form method="post" action="{% url 'login' %}">
+  <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 <table>
 
@@ -31,10 +30,10 @@
 
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
-</form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'register' %}">Регистрация</a></p>
+    <p><a href="{% url 'register' %}">Регистрация</a></p>
 <p><a href="{% url 'password_reset' %}">Забыл пароль?</a></p>
+</form>
+{% endif %}
+
 
 {% endblock %}

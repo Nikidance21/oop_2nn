@@ -4,11 +4,31 @@
 {% block title %} Профиль пользователя {% endblock %}
 
 {% block content %}
-   <h2>Профиль пользователя {{ user.username }}</h2>
+   <h2>Пользователь {{ user.username }}</h2>
    {% if user.name and user.surname %}
        <p>Здравствуйте, {{ user.name }} {{ user.surname }} </p>
    {% else %}
        <p>Здравствуйте! </p>
    {% endif %}
    <h3>Ваши объявления</h3>
+    {% if application_list  %}
+        <ul>
+            {% for application in application_list %}
+                <li>
+                    <div>
+                        <p> {{application.name}} - {{application.date}} - ({{application.status}}) {% if application.status == 'new' %}
+                        <a href="{% url 'delete_application' application.pk %}">Удалить заказ</a>
+                        {% endif %}</p>
+                        <p> {{application.categories}}</p>
+                        <img src="{{application.image}}">
+                        <p> {{application.description}}</p>
+                    </div>
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Объявлений нет</p>
+    {% endif %}
+   <li><a href="{% url 'createapp' %}">Создать объявление</a></li>
 {% endblock %}

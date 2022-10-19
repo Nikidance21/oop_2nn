@@ -3,18 +3,22 @@
 {% block content %}
 <h1>Design.pro</h1>
 
-  <p>Welcome to <em>Design.pro</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
-
- <h1>Планы помещений</h1>
-  {% if index %}
+ <h3>Планы помещений</h3>
+  {% if application_list %}
   <ul>
-    {% for application in index %}
-      <li>
-        <a href="{{ application.get_absolute_url }}">{{ application.name }}</a> ({{application.date}})
-      </li>
-    {% endfor %}
+   {% for application in application_list %}
+                <li>
+                    <div>
+                        <p> {{application.name}} - {{application.date}} - ({{application.status}})</p>
+                        <p> {{application.categories}}</p>
+                        <img src="{{application.image}}">
+                        <p> {{application.description}}</p>
+                    </div>
+                </li>
+
+            {% endfor %}
   </ul>
-  {% else %}
+ {% else %}
     <p>Планов помещений нет</p>
   {% endif %}
 
