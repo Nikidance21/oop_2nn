@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -121,5 +122,5 @@ AUTH_USER_MODEL = 'catalog.User'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
 MEDIA_URL = '/files/'
 
-LOGIN_REDIRECT_URL = '/accounts/profile/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL = '/catalog/accounts/profile/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'

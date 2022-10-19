@@ -62,3 +62,14 @@ class RegisterUserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+#class CreateAppForm(forms.ModelForm):
+   # name = forms.CharField(label='Название',
+                          # error_messages={
+                             #  'required': "Обязательное поле",
+                          # })
+
+  #  class Meta:
+      #  model = User
+      #  fields = ('name', 'surname', 'username', 'email', 'password', 'password2', 'rules')

@@ -1,21 +1,17 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Design.pro</h1>
 
  <h3>Планы помещений</h3>
   {% if application_list %}
   <ul>
    {% for application in application_list %}
-                <li>
-                    <div>
+                    <div class="">
                         <p> {{application.name}} - {{application.date}} - ({{application.status}})</p>
                         <p> {{application.categories}}</p>
                         <img src="{{application.image}}">
                         <p> {{application.description}}</p>
                     </div>
-                </li>
-
             {% endfor %}
   </ul>
  {% else %}

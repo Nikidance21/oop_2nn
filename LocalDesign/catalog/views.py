@@ -45,3 +45,7 @@ def delete_application(request, pk):
     return redirect('applications')
 
 
+#class CreateAppView(CreateView):
+   # template_name = 'createapp.html'
+    #form_class = CreateAppForm
+  #  success_url = reverse_lazy('profile')

@@ -6,6 +6,8 @@ from .views import createapp, ApplicationListView, delete_application, Applicati
 urlpatterns = [
     path('', ApplicationAllListView.as_view(), name='index'),
     path('register', views.RegisterView.as_view(), name='register'),
+  #  path('createapp', views.CreateAppView.as_view(), name='createapp'),
+
     path('accounts/profile/', ApplicationListView.as_view(), name='profile'),
     path('accounts/profile/createapp/', createapp, name='createapp'),
     path(r'delete_application/<pk>', delete_application, name='delete_application')
