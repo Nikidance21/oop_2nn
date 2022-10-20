@@ -34,18 +34,19 @@ class ApplicationListView(LoginRequiredMixin, generic.ListView):
         return Application.objects.filter(username=self.request.user).order_by('-date')
 
 
-
 @login_required
 def delete_application(request, pk):
-    application = Application.objects.filter(username=request.username, pk=pk, status='new')
+    application = Application.objects.filter(username=request.user, pk=pk, status='new')
     if application:
         application.delete()
-    return redirect('applications')
+    return redirect('profile')
 
 
 class CreateAppView(LoginRequiredMixin, CreateView):
     model = Application
     fields = ['name', 'description', 'categories', 'image']
+    template_name = 'createapp.html'
+    success_url = reverse_lazy('profile')
 
     def form_valid(self, form):
         form.instance.username = self.request.user
