@@ -7,11 +7,15 @@
   {% if application_list %}
   <ul>
    {% for application in application_list %}
-                    <div class="">
-                        <p> {{application.name}} - {{application.date}} - ({{application.status}})</p>
+                     <div class=" border-bottom box-shadow">
+                        <p class="p-2"> {{application.name}} - {{application.date}} - ({{application.status}}) {% if application.status == 'new' %}
+                        <a href="{% url 'delete_application' application.pk %}">Удалить заказ</a>
+                        {% endif %}</p>
                         <p> {{application.categories}}</p>
-                        <img src="{{application.image}}">
-                        <p> {{application.description}}</p>
+                          <div class="d-flex ">
+                             <img src="{{application.image.url}}" height="200px" width="350px">
+                            <p class="p-2"> {{application.description}}</p>
+                        </div><br>
                     </div>
             {% endfor %}
   </ul>
