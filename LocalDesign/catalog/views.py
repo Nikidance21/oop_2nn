@@ -6,13 +6,15 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from catalog.forms import RegisterUserForm
 from django.contrib.auth.decorators import login_required
-
+import datetime
 from catalog.models import Application
+from django.db.models import Q
 
 
 class ApplicationAllListView(generic.ListView):
     model = Application
     template_name = 'index.html'
+    paginate_by = 4
 
     def get_queryset(self):
         return Application.objects.filter(status='done').order_by('-date')
@@ -32,20 +34,29 @@ class ApplicationListView(LoginRequiredMixin, generic.ListView):
         return Application.objects.filter(username=self.request.user).order_by('-date')
 
 
-@login_required
-def createapp(request):
-    return render(request, 'createapp.html')
-
 
 @login_required
 def delete_application(request, pk):
-    application = Application.odjects.filter(username=request.username, pk=pk, status='new')
+    application = Application.objects.filter(username=request.username, pk=pk, status='new')
     if application:
         application.delete()
     return redirect('applications')
 
 
-#class CreateAppView(CreateView):
-   # template_name = 'createapp.html'
-    #form_class = CreateAppForm
-  #  success_url = reverse_lazy('profile')
+class CreateAppView(LoginRequiredMixin, CreateView):
+    model = Application
+    fields = ['name', 'description', 'categories', 'image']
+
+    def form_valid(self, form):
+        form.instance.username = self.request.user
+        form.instance.date = datetime.date.today()
+        return super().form_valid(form)
+
+
+class ApplicationAdminView(generic.ListView):
+    model = Application
+    template_name = 'appadmin.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Application.objects.filter(Q(status='done') | Q(status='in work')).order_by('-date')

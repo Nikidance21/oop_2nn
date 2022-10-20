@@ -3,7 +3,7 @@
 {% block content %}
 
  <h3>Планы помещений</h3>
-
+{% if user.is_staff %}
   {% if application_list %}
   <ul>
    {% for application in application_list %}
@@ -18,5 +18,5 @@
  {% else %}
     <p>Планов помещений нет</p>
   {% endif %}
-
+ {% endif %}
 {% endblock %}

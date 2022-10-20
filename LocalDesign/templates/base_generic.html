@@ -24,6 +24,9 @@
        {% if user.is_authenticated %}
        <div class="d-flex flex-column justify-content-around flex-md-row">
        <p class="p-2"><strong>{{ user.get_username }}</strong></p>
+           {% if user.is_stuff %}
+           <a class="p-2 text-dark" href="{%url 'appadmin'%}">Предложения</a>
+            {% endif %}
        <a class="p-2 text-dark" href="{%url 'profile'%}">Личный кабинет</a>
        <a class="p-2 text-dark" href="{%url 'logout'%}">Выход</a>
        </div>
@@ -33,6 +36,7 @@
        <a class="p-2 text-dark" href="{%url 'login'%}">Вход</a>
        </div>
        {% endif %}
+
 
    </div>
    <div>
