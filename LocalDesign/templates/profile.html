@@ -1,6 +1,4 @@
 {% extends "base_generic.html" %}
-
-
 {% block content %}
    <h2>Пользователь {{ user.username }}</h2>
    {% if user.name and user.surname %}
@@ -9,13 +7,15 @@
        <p>Здравствуйте! </p>
    {% endif %}
    <h3>Ваши объявления</h3>
+    <p>(<a href="{% url 'createapp' %}">Создать объявление</a>)</p>
     {% if application_list  %}
         <ul>
             {% for application in application_list %}<br>
                     <div class=" border-bottom box-shadow">
-                        <p class="p-2"> {{application.name}} - {{application.date}} - ({{application.status}}) {% if application.status == 'new' %}
-                        <a href="{% url 'delete_application' application.pk %}">Удалить заказ</a>
-                        {% endif %}</p>
+                        <p class="p-2"> {{application.name}} - {{application.date}} - ({{application.status}})
+                            {% if application.status == 'new' %}
+                                <a href="{% url 'delete_application' application.pk %}">Удалить заказ</a>
+                            {% endif %}</p>
                         <p> {{application.categories}}</p>
                           <div class="d-flex ">
                              <img src="{{application.image.url}}" height="200px" width="350px">
@@ -27,5 +27,4 @@
     {% else %}
         <p>Объявлений нет</p>
     {% endif %}
-   <li><a href="{% url 'createapp' %}">Создать объявление</a></li>
 {% endblock %}

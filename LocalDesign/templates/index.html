@@ -8,9 +8,7 @@
   <ul>
    {% for application in application_list %}
                      <div class=" border-bottom box-shadow">
-                        <p class="p-2"> {{application.name}} - {{application.date}} - ({{application.status}}) {% if application.status == 'new' %}
-                        <a href="{% url 'delete_application' application.pk %}">Удалить заказ</a>
-                        {% endif %}</p>
+                        <p class="p-2"> {{application.name}} - {{application.date}} - ({{application.status}})</p>
                         <p> {{application.categories}}</p>
                           <div class="d-flex ">
                              <img src="{{application.image.url}}" height="200px" width="350px">

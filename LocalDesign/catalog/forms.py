@@ -1,8 +1,7 @@
+from django.core.validators import RegexValidator
 from django import forms
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
-
-from catalog.models import User
+from catalog.models import User, Application
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -64,12 +63,35 @@ class RegisterUserForm(forms.ModelForm):
         return user
 
 
-#class CreateAppForm(forms.ModelForm):
-   # name = forms.CharField(label='Название',
-                          # error_messages={
-                             #  'required': "Обязательное поле",
-                          # })
+class UpdateApplicationForm(forms.ModelForm):
+    status = forms.CharField(max_length=200, label='Комментарий')
 
-  #  class Meta:
-      #  model = User
-      #  fields = ('name', 'surname', 'username', 'email', 'password', 'password2', 'rules')
+    img = forms.ImageField(label='Фото работы', required=False)
+    comment = forms.CharField(label='Комментарий', required=False, help_text='Комментарий')
+
+    def clean(self):
+        super().clean()
+        print(self.cleaned_data)
+
+        status = self.cleaned_data.get('status')
+        comment = self.cleaned_data.get('comment')
+        img = self.cleaned_data.get('img')
+        if status == 'in work' and comment == '':
+            errors = {'status': ValidationError(
+                'После изменения статуса на принят в работу нужно добавить комментарий'
+            )}
+            raise ValidationError(errors)
+        elif status == 'done' and img is None:
+            errors = {'status': ValidationError(
+                'После изменения статуса на выполнено нужно добавить фото'
+            )}
+            raise ValidationError(errors)
+        elif status == 'new':
+            errors = {'status': ValidationError(
+                'Вы не можете изменить статус на новый'
+            )}
+            raise ValidationError(errors)
+
+    class Meta:
+        model = Application
+        fields = ('status', 'img', 'comment')

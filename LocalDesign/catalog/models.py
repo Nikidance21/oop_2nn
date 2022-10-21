@@ -30,8 +30,12 @@ class Application(models.Model):
                               null=True, blank=False,
                               validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'bmp'])])
     status = models.CharField(max_length=200, verbose_name='Статус',
-                              choices=(('new', 'Новая'), ('in work', 'Принято в работу'), ('done', 'Выполнено')), default='new')
+                              choices=(('new', 'Новая'), ('in work', 'Принято в работу'), ('done', 'Выполнено')),
+                              default='new')
     date = models.DateField(verbose_name='Дата добавления', auto_now_add=True)
+    img = models.ImageField(max_length=254, upload_to=get_name_file, null=True, blank=False,
+                            validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'bmp'])])
+    comment = models.TextField(max_length=1000, help_text="Комментарий", blank=True)
 
     def __str__(self):
         return self.name
@@ -42,9 +46,3 @@ class Categorise(models.Model):
 
     def __str__(self):
         return self.name
-
-# class Status(models.Model):
-# name = models.CharField(max_length=200, help_text="Напишите статус")
-
-# def __str__(self):
-#  return self.name

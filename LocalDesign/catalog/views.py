@@ -1,14 +1,14 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import generic
-from django.views.generic import CreateView
-from django.contrib.auth.views import LoginView
+from django.views.generic import CreateView, UpdateView
+
 from django.urls import reverse_lazy
-from catalog.forms import RegisterUserForm
+from catalog.forms import RegisterUserForm, UpdateApplicationForm
 from django.contrib.auth.decorators import login_required
 import datetime
 from catalog.models import Application
-from django.db.models import Q
+from django.db.models import Q, Count
 
 
 class ApplicationAllListView(generic.ListView):
@@ -54,10 +54,32 @@ class CreateAppView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ApplicationAdminView(generic.ListView):
+class ApplicationAdminView(PermissionRequiredMixin, generic.ListView):
     model = Application
+    permission_required = 'catalog.can_mark_returned'
     template_name = 'appadmin.html'
-    paginate_by = 10
+    paginate_by = 5
+    status = None
+
+    def get(self, request, *args, **kwargs):
+        if request.GET.get('status'):
+            self.status = request.GET.get('status')
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplicationAdminView, self).get_context_data(**kwargs)
+        context['status_list'] = Application.status
+        return context
 
     def get_queryset(self):
-        return Application.objects.filter(Q(status='done') | Q(status='in work')).order_by('-date')
+        return Application.objects.all()
+
+
+class ApplicationUpdate(UpdateView):
+    model = Application
+    form_class = UpdateApplicationForm
+    permission_required = 'catalog.can_mark_returned'
+
+    def post(self, request, *args, **kwargs):
+        print(request)
+        return super().post(request, *args, **kwargs)
