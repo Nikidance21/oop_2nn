@@ -33,7 +33,7 @@ class Application(models.Model):
                               choices=(('new', 'Новая'), ('in work', 'Принято в работу'), ('done', 'Выполнено')),
                               default='new')
     date = models.DateField(verbose_name='Дата добавления', auto_now_add=True)
-    img = models.ImageField(max_length=254, upload_to=get_name_file, null=True, blank=False,
+    img = models.ImageField(max_length=254, upload_to=get_name_file, null=True, blank=True,
                             validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'bmp'])])
     comment = models.TextField(max_length=1000, help_text="Комментарий", blank=True)
 

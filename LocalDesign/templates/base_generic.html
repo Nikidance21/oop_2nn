@@ -24,9 +24,6 @@
        {% if user.is_authenticated %}
        <div class="d-flex flex-column justify-content-around flex-md-row">
        <p class="p-2"><strong>{{ user.get_username }}</strong></p>
-          {% if perms.catalog.can_mark_returned %}
-            <a class="p-2 text-dark" href="{% url 'appadmin' %}">Все заказы</a>
-            {% endif %}
        <a class="p-2 text-dark" href="{%url 'profile'%}">Личный кабинет</a>
        <a class="p-2 text-dark" href="{%url 'logout'%}">Выход</a>
        </div>

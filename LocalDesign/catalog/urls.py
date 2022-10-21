@@ -8,7 +8,4 @@ urlpatterns = [
     path('accounts/profile/', ApplicationListView.as_view(), name='profile'),
     path('accounts/profile/createapp/', views.CreateAppView.as_view(), name='createapp'),
     path(r'delete_application/<pk>', delete_application, name='delete_application'),
-    path(r'customer/', views.ApplicationAdminView.as_view(), name='appadmin'),
-    path(r'customer/update/', views.ApplicationUpdate.as_view(), name='application-update'),
-
 ]

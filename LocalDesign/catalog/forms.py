@@ -63,35 +63,15 @@ class RegisterUserForm(forms.ModelForm):
         return user
 
 
-class UpdateApplicationForm(forms.ModelForm):
-    status = forms.CharField(max_length=200, label='Комментарий')
-
-    img = forms.ImageField(label='Фото работы', required=False)
-    comment = forms.CharField(label='Комментарий', required=False, help_text='Комментарий')
-
+class ApplicationForm(forms.ModelForm):
     def clean(self):
-        super().clean()
-        print(self.cleaned_data)
-
         status = self.cleaned_data.get('status')
-        comment = self.cleaned_data.get('comment')
         img = self.cleaned_data.get('img')
-        if status == 'in work' and comment == '':
-            errors = {'status': ValidationError(
-                'После изменения статуса на принят в работу нужно добавить комментарий'
-            )}
-            raise ValidationError(errors)
-        elif status == 'done' and img is None:
-            errors = {'status': ValidationError(
-                'После изменения статуса на выполнено нужно добавить фото'
-            )}
-            raise ValidationError(errors)
-        elif status == 'new':
-            errors = {'status': ValidationError(
-                'Вы не можете изменить статус на новый'
-            )}
-            raise ValidationError(errors)
+        comment = self.cleaned_data.get('comment')
+        if self.instance.status != 'new':
+            raise forms.ValidationError({'status': "Только у новых заказов можно поменять статус"})
+        elif status == 'in work' and not comment:
+            raise forms.ValidationError({'comment': "Добавьте комментарий "})
+        elif status == 'done' and not img:
+            raise forms.ValidationError({'img': "Добавьте созданный дизайн"})
 
-    class Meta:
-        model = Application
-        fields = ('status', 'img', 'comment')
