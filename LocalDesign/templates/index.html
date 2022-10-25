@@ -9,18 +9,24 @@
 
   <ul>
    {% for application in application_list %}
-                     <div class=" border-bottom box-shadow">
-                        <p class="p-2"> {{application.name}} - {{application.date}} - ({{application.status}})</p>
-                        <p> {{application.categories}}</p>
+                     <div class=" box-shadow content-window">
                           <div class="d-flex ">
-                             <img src="{{application.image.url}}" height="200px" width="350px">
-                            <p class="p-2"> {{application.description}}</p>
-                        </div><br>
+                                <div>
+                                     <img src="{{application.image.url}}">
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                         <p class="p-2"> {{application.name}} ({{application.categories}})</p>
+                                        <p class="p-2"> {{application.date}} - ({{application.status}})</p>
+                                    </div>
+                                    <p class="p-2"> {{application.description}}</p>
+                                </div>
+                         </div>
                     </div>
             {% endfor %}
   </ul>
  {% else %}
-    <p>Планов помещений нет</p>
+    <p class="zgl">Планов помещений нет</p>
   {% endif %}
 
 {% endblock %}

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Добавление дополнительного статического CSS файла -->
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
 </head>
@@ -50,16 +50,16 @@
    </div>
     {% block pagination %}
     {% if is_paginated %}
-        <div class="pagination m-auto">
+        <div class="pagination justify-content-center m-auto bg-white">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Предыдущая</a>
                 {% endif %}
                 <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>
                 {% endif %}
             </span>
         </div>
@@ -67,7 +67,7 @@
   {% endblock %}
 
 
-    <footer class="footer_part">
+    <footer class="footer_part d-flex justify-content-center align-items-center ">
         <div class="copyright_part">
             <div class="container">
                 <div class="row ">
