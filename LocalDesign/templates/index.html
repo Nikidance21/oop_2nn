@@ -1,10 +1,12 @@
 {% extends "base_generic.html" %}
 
-{% block content %}
 
- <h3>Планы помещений</h3>
+{% block content %}
+ <div><P class="zgl">Выполненные планы помещений</P></div>
+
 
   {% if application_list %}
+
   <ul>
    {% for application in application_list %}
                      <div class=" border-bottom box-shadow">

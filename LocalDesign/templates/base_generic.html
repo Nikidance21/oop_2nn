@@ -2,49 +2,55 @@
 <html lang="en">
 <head>
 
-    {% block title %}<title>Design.pro</title>{% endblock %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% block title %}<title>Design.pro</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Добавление дополнительного статического CSS файла -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-    <!-- Добавление дополнительного статического CSS файла -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 
 <body>
-<div class="container-fluid">
-   <div class="d-flex flex-column flex-md-row p-3 px-md-4 mb-3 justify-content-between bg-white border-bottom box-shadow">
-       <div class="d-flex flex-column justify-content-around flex-md-row">
-           <h5 class="mr-md-auto p-2">Design.pro</h5>
-       <a class="p-2 text-dark" href="{% url 'index'  %}">Главная</a>
+<div class="container-fluid px-0">
+    <header class="header">
+            <section>
+                 <h4 class="mr-md-auto p-2 text-white">DESIGN.PRO</h4>
+                <nav>
+                    <li><a  href="{% url 'index'  %}">ГЛАВНАЯ</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a class="" href="{%url 'profile'%}">ЛИЧНЫЙ КАБИНЕТ</a></li>
+                    <li><a class="" href="{%url 'logout'%}">ВЫХОД</a></li>
+                      {% else %}
+
+                    <li><a href="{%url 'register'%}">РЕГИСТРАЦИЯ</a></li>
+                    <li><a href="{%url 'login'%}">ВХОД</a>
+                    {% endif %}
+               </nav>
+            </section>
+        </header>
+
+       <div class="bg-white ">
+       <div class="window">
+                <p>ЛУЧШИЕ ДИЗАЙНЕРСКИЕ<br> РЕШЕНИЯ</p>
+                <P>Много лет мы помогаем нашим клиентам<br>
+                    создавать интерьер мечты. Отправляй <br>свои предложения, а мы покажем как это<br>
+                будет выглядеть в реальности</P>
        </div>
-       {% if user.is_authenticated %}
-       <div class="d-flex flex-column justify-content-around flex-md-row">
-       <p class="p-2"><strong>{{ user.get_username }}</strong></p>
-       <a class="p-2 text-dark" href="{%url 'profile'%}">Личный кабинет</a>
-       <a class="p-2 text-dark" href="{%url 'logout'%}">Выход</a>
-       </div>
-       {% else %}
-       <div class="d-flex flex-column justify-content-around flex-md-row">
-       <a class="p-2 text-dark" href="{%url 'register'%}">Регистрация</a>
-       <a class="p-2 text-dark" href="{%url 'login'%}">Вход</a>
-       </div>
-       {% endif %}
 
 
    </div>
-   <div>
-       <div class="container">
+
+   <div class="bg-white">
+       <div class="container bg-white m-auto-0">
        {% block content %}
        {% endblock %}
        </div>
    </div>
     {% block pagination %}
     {% if is_paginated %}
-        <div class="pagination">
+        <div class="pagination m-auto">
             <span class="page-links">
                 {% if page_obj.has_previous %}
                     <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
@@ -60,9 +66,21 @@
     {% endif %}
   {% endblock %}
 
-   <footer class="mt-3 border-top">
 
-   </footer>
+    <footer class="footer_part">
+        <div class="copyright_part">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-12">
+                        <div class="copyright_text">
+                            <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</P>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
 
 </body>
