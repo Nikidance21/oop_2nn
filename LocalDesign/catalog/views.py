@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
-from django.views import generic
+from django.views import generic, View
 from django.views.generic import CreateView, UpdateView
 
 from django.urls import reverse_lazy
@@ -52,9 +52,3 @@ class CreateAppView(LoginRequiredMixin, CreateView):
         form.instance.username = self.request.user
         form.instance.date = datetime.date.today()
         return super().form_valid(form)
-
-
-
-
-
-

@@ -8,4 +8,5 @@ urlpatterns = [
     path('accounts/profile/', ApplicationListView.as_view(), name='profile'),
     path('accounts/profile/createapp/', views.CreateAppView.as_view(), name='createapp'),
     path(r'delete_application/<pk>', delete_application, name='delete_application'),
+
 ]

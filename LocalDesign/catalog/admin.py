@@ -8,6 +8,7 @@ class ApplicationAdmin(admin.ModelAdmin):
     form = ApplicationForm
     list_display = ('name', 'date', 'username', 'status')
     fields = ('status', 'img', 'comment')
+    list_filter = ('status', 'categories')
 
 
 admin.site.register(Categorise)
