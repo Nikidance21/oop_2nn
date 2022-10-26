@@ -369,13 +369,40 @@ main>section:nth-child(11)>form>input.btm2:hover{
     display: grid;
 }
 .for-form>form>input{
-    margin-left: 65px;
+   width: 100%;
     margin-top: 10px;
+    background-color: #b08ead;
+    border: none;
+    border-radius:5px ;
+    color: white;
+    font-weight: bold;
+    height: 35px;
+
+}
+.for-form>form>button{
+  width: 100%;
+    margin-top: 10px;
+    background-color: #b08ead ;
+     border: none;
+    border-radius:5px ;
+    font-weight: bold;
+}
+.for-form>form>table>tbody>tr>th>label{
+    color: #b08ead ;
+    margin-top: 10px;
+}
+.for-form>form>table>tbody>tr>td>label{
+        color: #b08ead ;
+    font-weight: bold;
+    margin-top: 10px;
+
 }
  .wit{
      height: 600px;
  }
-
+.for-form>form>table>tbody>tr>td>input{
+    width: 100%;
+}
  .wit2{
       height: 800px;
  }
