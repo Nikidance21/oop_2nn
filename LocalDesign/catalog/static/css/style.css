@@ -366,9 +366,15 @@ main>section:nth-child(11)>form>input.btm2:hover{
     margin: 50px;
 }
 .for-form>form>table>tbody>tr{
-
+    display: grid;
 }
-
+.for-form>form>input{
+    margin-left: 65px;
+    margin-top: 10px;
+}
+ .wit{
+     height: 600px;
+ }
 
 
 
