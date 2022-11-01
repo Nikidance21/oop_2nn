@@ -15,6 +15,9 @@ class RegisterUserForm(forms.ModelForm):
                               error_messages={
                                   'required': "Обязательное поле",
                               })
+    patronymic = forms.CharField(label='Отчество', validators=[RegexValidator('^[а-яА-Я- ]+$',
+                                                                              message="Разрешены только кириллица,тире и пробелы")])
+
     username = forms.CharField(label='Логин', validators=[RegexValidator('^[a-zA-Z-]+$',
                                                                          message='Разрешены только латиница и тире')],
                                error_messages={
@@ -53,7 +56,7 @@ class RegisterUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('name', 'surname', 'username', 'email', 'password', 'password2', 'rules')
+        fields = ('name', 'surname', 'patronymic', 'username', 'email', 'password', 'password2', 'rules')
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -74,4 +77,3 @@ class ApplicationForm(forms.ModelForm):
             raise forms.ValidationError({'comment': "Добавьте комментарий "})
         elif status == 'done' and not img:
             raise forms.ValidationError({'img': "Добавьте созданный дизайн"})
-
