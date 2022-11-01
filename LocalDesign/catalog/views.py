@@ -34,8 +34,21 @@ class RegisterView(CreateView):
 class ApplicationListView(LoginRequiredMixin, generic.ListView):
     model = Application
     template_name = 'profile.html'
+    status = None
+
+    def get(self, request, *args, **kwargs):
+        if request.GET.get('status'):
+            self.status = request.GET.get('status')
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplicationListView, self).get_context_data(**kwargs)
+        context['status_list'] = Application.objects.filter(Q(status='new') | Q(status='in work') | Q(status='done'))
+        return context
 
     def get_queryset(self):
+        if self.status:
+            return Application.objects.filter(username=self.request.user, status=self.status)
         return Application.objects.filter(username=self.request.user).order_by('-date')
 
 
