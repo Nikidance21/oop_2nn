@@ -16,6 +16,11 @@ class ApplicationAllListView(generic.ListView):
     template_name = 'index.html'
     paginate_by = 4
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ApplicationAllListView, self).get_context_data(*args, **kwargs)
+        context['count'] = Application.objects.filter(status='done').count()
+        return context
+
     def get_queryset(self):
         return Application.objects.filter(status='done').order_by('-date')
 
