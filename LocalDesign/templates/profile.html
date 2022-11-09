@@ -7,6 +7,21 @@
 
 {% if application_list %}
 
+
+            <div class="link_filter">
+                {% if request.GET.status %}
+                    <a href="{% url 'profile' %}">Все</a>
+                    {% for item in status_list %}
+                    {% if request.GET.status != item%}
+                    <a href="{% url 'profile' %}?status={{item.0}}"> ({{item.1}}) </a>
+                    {% else %}
+                    {{item.status}}
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+                </div>
+
+
   <ul>
    {% for application in application_list %}
                      <div class=" box-shadow content-window">
